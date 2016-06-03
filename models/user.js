@@ -25,15 +25,14 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.BOOLEAN,
             defaultValue: false
         }
-      },
+           },
       { instanceMethods: {
           verifyPassword: function (password) {
             return encryptPassword(password, this.salt) === this.password;
           }
-        }    
+        }   
       });
 };
-
 
 /*
  * Encripta un password en claro.

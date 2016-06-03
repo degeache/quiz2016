@@ -1,1 +1,2 @@
-# quiz2016
+# Quiz
+Proyecto de Core

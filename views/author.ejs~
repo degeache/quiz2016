@@ -1,3 +1,16 @@
-  <h1>Autor</h1>
-    <p>Sergio Pérez Morillo</p>
-    <img src="quiz.jpg"> 
+<!DOCTYPE html>
+<html>
+	<head>
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+ 	<title> Creditos </title>
+ 	<link rel='stylesheet' href='/stylesheets/style.css' />
+ 
+ </head>
+ <body>
+ <h1>Créditos</h1>
+ <p>pagina creada por:</p>
+ <p>Odei Barcos castera</p>
+ <img src="images/quiz.jpg" />
+ </body>
+ </html>
+ 

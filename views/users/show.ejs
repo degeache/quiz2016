@@ -1,4 +1,4 @@
-
+<link rel='stylesheet' href='/stylesheets/style.css' />
 
 <h2>Usuario</h2>
 
@@ -14,19 +14,15 @@
 
 <% if (session.user) { %>
   <p>
-    <% if (session.user.isAdmin || session.user.id === user.id) { %>
-      <a href="/users/<%= user.id %>/edit"> 
-        <button type="button"> Editar </button>
-      </a>
-    <% } %>
-    <% if (session.user.isAdmin && session.user.id !== user.id) { %>
-      <a href="/users/<%= user.id %>?_method=DELETE"> 
-        <button type="button"
+    <a href="/users/<%= user.id %>/edit"> 
+      <button type="button"> Editar </button>
+    </a>
+    <a href="/users/<%= user.id %>?_method=DELETE"> 
+      <button type="button"
               onClick="return confirm('Borrar cuenta: <%= user.username %>');">
-          Borrar 
-        </button>
-      </a>
-    <% } %>
+         Borrar 
+      </button>
+    </a>
   </p>
 <% } %>
 

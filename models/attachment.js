@@ -1,3 +1,4 @@
+
 // Definicion del modelo Attachment:
 
 module.exports = function(sequelize, DataTypes) {

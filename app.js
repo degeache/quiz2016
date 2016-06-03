@@ -1,3 +1,4 @@
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -11,12 +12,16 @@ var methodOverride = require('method-override');
 
 var routes = require('./routes/index');
 
+
 var app = express();
+
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+ 
 // En produccion (Heroku) redirijo las peticiones http a https.
 // Documentacion: http://jaketrent.com/post/https-redirect-node-heroku/
 if (app.get('env') === 'production') {
@@ -30,6 +35,8 @@ if (app.get('env') === 'production') {
 }
 
 
+
+app.use(partials());
 // uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
@@ -37,12 +44,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(session({secret: "Quiz 2016",
-                 resave: false,
-                 saveUninitialized: true}));
+                  resave: false,
+                  saveUninitialized: true}));
+
 app.use(methodOverride('_method', {methods: ["POST", "GET"]}));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(partials());
 app.use(flash());
 
 // Helper dinamico:
@@ -54,26 +61,22 @@ app.use(function(req, res, next) {
    next();
 });
 
-
-
-
+// Comprobamos si la sesion ha expirado (2 minutos)
 app.use(function(req, res, next) {
-    var now = new Date();
-    if(!req.session.user){
-      next();
-    }else if((now.getTime() - req.session.user.tiempo) > 120000){
+  if(req.session.user){
+    if((Date.now() - req.session.user.expires) < 120000){
+      req.session.user.expires = Date.now();
+    } else {
       delete req.session.user;
-      next();
-    }else{
-      req.session.user.tiempo = new Date().getTime();
-      next();
+      req.flash('error', 'La sesión ha expirado.');
     }
+  }
+
+  next();
 });
 
 
 app.use('/', routes);
-
-
 
 
 // catch 404 and forward to error handler
@@ -106,9 +109,6 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
-
-
 
 
 module.exports = app;
